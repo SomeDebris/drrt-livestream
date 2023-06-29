@@ -29,6 +29,7 @@ async fn main() -> Result<()> {
         .hotkeys()
         .trigger_by_name("Hide on DSK 1")
         .await?;
+    println!("{:#?}", dsk_thing);
 
     Ok(())
 }
