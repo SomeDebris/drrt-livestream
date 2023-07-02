@@ -2,8 +2,12 @@ use std::env;
 
 use anyhow::Result;
 use base64::engine::{general_purpose, Engine};
-use obws::{Client};
+use obws::Client;
+use obws::requests::{general::CallVendorRequest, sources::TakeScreenshot};
 use tokio::fs;
+
+pub struct GetDownstreamKeyers {
+}
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -17,6 +21,25 @@ async fn main() -> Result<()> {
     // Get and print out version information of OBS and obs-websocket.
     let version = client.general().version().await?;
     println!("{:#?}", version);
+
+    // let extra_info = client
+    //     .general()
+    //     .call_vendor_request(CallVendorRequest {
+    //         vendor_name:  "downstream-keyer",
+    //         request_type: "get_downstream_keyers",
+    //         request_data: "{}",
+    //     })
+    //     .await?;
+
+    let _screenshot = client
+        .sources()
+        .take_screenshot(TakeScreenshot {
+            source: "Game",
+            width: None,
+            height: None,
+            compression_quality: None,
+            format: "png",
+        }).await?;
 
     // Get a list of available scenes and print them out.
     let scene_list = client.scenes().list().await?;
