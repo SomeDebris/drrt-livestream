@@ -6,12 +6,7 @@ use obws::Client;
 use obws::requests::{general::CallVendorRequest, sources::TakeScreenshot};
 use tokio::fs;
 
-use serde::Serialize;
-use serde_with::skip_serializing_none;
-
-#[skip_serializing_none]
-pub struct GetDownstreamKeyers {
-}
+pub mod dsk_requests;
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -31,7 +26,7 @@ async fn main() -> Result<()> {
     //     .call_vendor_request(CallVendorRequest {
     //         vendor_name:  "downstream-keyer",
     //         request_type: "get_downstream_keyers",
-    //         request_data: "{}",
+    //         request_data: GetDownstreamKeyers {},
     //     })
     //     .await?;
 
